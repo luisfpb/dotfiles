@@ -68,7 +68,7 @@ nmap <Leader>\ :vs<CR>
 nmap <Leader>- :sp<CR>
 
 " Ruby pry debugger
-nmap <Leader>p orequire "pry"; binding.pry <Esc>
+nmap <Leader>p require "pry"; binding.pry <Esc>
 
 " Buffer navigation
 nmap <Leader>bp :bprevious<CR>
@@ -163,6 +163,9 @@ Plugin 'ajh17/VimCompletesMe'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'nono/vim-handlebars'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-haml'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'szw/vim-maximizer'
@@ -171,7 +174,7 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'qpkorr/vim-renamer'
 Plugin 'tmatilai/vim-monit'
 Plugin 'godlygeek/tabular'
-Plugin 'kchmck/vim-coffee-script'
+Plugin 'lejboua/vim-test'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
