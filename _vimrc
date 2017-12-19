@@ -1,7 +1,9 @@
 " Leader key
 let mapleader=","
 
-syntax enable
+if !exists("g:syntax_on")
+    syntax enable
+endif
 filetype off
 colorscheme solarized
 set nocompatible
@@ -10,6 +12,7 @@ set t_Co=256
 set background=dark
 set number
 set backspace=2
+set lazyredraw
 
 set backupdir=~/.vim/vimtmp,.
 set directory=~/.vim/vimtmp,.
@@ -134,6 +137,15 @@ au BufNewFile,BufRead *.monitrc setlocal syntax=monitrc
 " highlight cursor line
 :set cursorline
 
+" hybrid line numbers
+:set number relativenumber
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
 " Vundleh
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -143,7 +155,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'edkolev/tmuxline.vim'
+" Plugin 'edkolev/tmuxline.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-ruby/vim-ruby'
@@ -165,6 +177,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'lejboua/vim-test'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'Konfekt/FastFold'
 " Plugin 'kchmck/vim-coffee-script'
 " SOON...
 " Plugin 'hallettj/jslint.vim'
