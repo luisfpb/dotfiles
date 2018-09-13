@@ -6,6 +6,7 @@ if !exists("g:syntax_on")
 endif
 filetype off
 colorscheme solarized
+set clipboard=unnamed
 set nocompatible
 set laststatus=2
 set t_Co=256
@@ -13,6 +14,7 @@ set background=dark
 set number
 set backspace=2
 set lazyredraw
+set encoding=utf-8
 
 set backupdir=~/.vim/vimtmp,.
 set directory=~/.vim/vimtmp,.
@@ -42,13 +44,13 @@ nmap <Leader>bp :bprevious<CR>
 nmap <Leader>bn :bnext<CR>
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
+"set list listchars=tab:»·,trail:·,nbsp:·
 
 " ================ Scrolling ========================
 
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins
-set sidescrolloff=15
-set sidescroll=1
+"set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+"set sidescrolloff=15
+"set sidescroll=1
 
 " Make it obvious where 100 characters is
 set textwidth=100
@@ -115,6 +117,7 @@ let g:airline_theme='solarized'
 
 " NERDTree
 nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrows=0
 
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
@@ -135,16 +138,31 @@ nmap <silent> <leader>n :cnext <CR>
 au BufNewFile,BufRead *.monitrc setlocal syntax=monitrc
 
 " highlight cursor line
-:set cursorline
+":set cursorline
 
 " hybrid line numbers
-:set number relativenumber
+":set number relativenumber
 
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+":augroup numbertoggle
+":  autocmd!
+":  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+":  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+":augroup END
+
+" Debuggers
+function! AddDebug()
+  let extension = expand('%:e')
+
+  if (extension == 'ex' || extension == 'exs')
+    call append('.', 'require IEx; IEx.pry')
+  elseif (extension == 'rb')
+    call append('.', 'require "pry"; binding.pry')
+  elseif (extension == 'py')
+    call append('.', 'import pdb; pdb.set_trace()')
+  endif
+endfunction
+
+nmap <silent> <Leader>p :call AddDebug()<CR>
 
 " Vundleh
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -169,7 +187,6 @@ Plugin 'tpope/vim-haml'
 " Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'szw/vim-maximizer'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'qpkorr/vim-renamer'
 Plugin 'tmatilai/vim-monit'
